@@ -1,24 +1,128 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+
+// TODO
+
+// Google book integration (key: AIzaSyD78sczo2XFjok6QWEIcEYMfgXTa-GWaJ8)
+// https://www.googleapis.com/books/v1/volumes?q=Anxiety%20and%20disconnection%20also%20emerged%20as%20drivers%20of%20numbing%20in%20addition%20to%20shame.&maxResults=1
 
 function App() {
+  const inputFile = React.useRef(null);
+  const [quotes, setQuotes] = React.useState([]);
+
+  const fixQuote = (quote) => {
+    console.log("fixQuote");
+    if (quote.match(/^‘/) && quote.match(/’$/)) {
+      quote = quote.substring(1, quote.length - 1);
+    }
+    if (quote.match(/^“/) && quote.match(/”$/)) {
+      quote = quote.substring(1, quote.length - 1);
+    }
+    if (quote.match(/^"/) && quote.match(/"$/)) {
+      quote = quote.substring(1, quote.length - 1);
+    }
+    if (quote.match(/^"(?!.*")/)) {
+      quote = quote.substring(1, quote.length);
+    }
+    if (quote.match(/^\(.*\)$/)) {
+      quote = quote.substring(1, quote.length - 1);
+    }
+    if (quote.match(/^\((?!.*\))/)) {
+      quote = quote.substring(1, quote.length);
+    }
+    if (quote.match(/^[A-Za-z]/)) {
+      quote = quote.charAt(0).toUpperCase() + quote.slice(1);
+    }
+
+    quote = quote.replace(/,$/, ".");
+    return quote;
+  };
+
+  const parseText = (text) =>
+    text
+      .split("==========")
+      .map((items) => {
+        const lines = items.trim().split("\n");
+        const quote = fixQuote(lines[3] || "");
+        const words = quote.split(" ").length;
+        return {
+          bookTitle: lines[0],
+          info: lines[1],
+          quote,
+          words,
+        };
+      })
+      .filter(({ quote, words }) => quote && words > 2)
+      .reduce((acc, current) => {
+        const x = acc.find((item) => item.quote === current.quote);
+        if (!x) {
+          return acc.concat([current]);
+        } else {
+          return acc;
+        }
+      }, [])
+      .sort((a, b) => (a.quote === b.quote ? 0 : a.quote < b.quote ? -1 : 1));
+
+  const handleFileChange = async (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    const file = event.target.files[0];
+
+    const text = await new Response(file).text();
+    setQuotes(parseText(text));
+  };
+
+  const handleChecked = ({ index, event }) => {
+    const copy = [...quotes];
+    copy[index].checked = !copy[index].checked;
+
+    setQuotes(copy);
+  };
+
+  const handleQuoteChange = ({ index, event }) => {
+    const copy = [...quotes];
+    copy[index].quote = event.currentTarget.value;
+    setQuotes(copy);
+  };
+
+  console.log("render");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className="header">
+        <h1>Kindle Quotes</h1>
+        <button className="button-upload">
+          Upload Clippings.txt{" "}
+          <input
+            className="button-upload-input"
+            type="file"
+            ref={inputFile}
+            accept=".txt"
+            onChange={handleFileChange}
+            tabIndex={-1}
+          />
+        </button>
+      </div>
+      {Boolean(quotes.length) && (
+        <div className="quotes">
+          {quotes.map(({ quote, checked }, index) => (
+            <div className="quote" key={index}>
+              <input
+                type="checkbox"
+                checked={checked}
+                onChange={(event) => handleChecked({ event, index })}
+              />
+              {Boolean(checked)}
+              <input
+                type="text"
+                className="textfield"
+                value={quote}
+                onChange={(event) => handleQuoteChange({ event, index })}
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -28,7 +28,7 @@ exports.handler = (event, context, callback) => {
     .getToken({
       code,
       redirect_uri: commonConfig.redirectUri,
-      client_id: backendSimpleConfig.client.id,
+      s_id: backendSimpleConfig.client.id,
       client_secret: backendSimpleConfig.client.secret,
     })
     .then((result) => {
@@ -37,7 +37,8 @@ exports.handler = (event, context, callback) => {
         statusCode: 200,
         body: `<html>
           <body>
-            <script>
+			<script>
+              alert("hello");
               window.opener.handleToken("${accessToken.token.access_token}");
               window.close();
             </script>

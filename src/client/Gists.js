@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Octokit } from "@octokit/rest";
-import { usePromise } from "./usePromise";
 import { generateAuthorizeUrl } from "./oauth";
 
 let octokit;
@@ -11,6 +10,8 @@ export default function RepoList() {
   const [accessToken, setAccessToken] = useState(
     localStorage.getItem("accessToken")
   );
+
+  const [gistsResponse, setGistsResponse] = useState([]);
 
   const setupOktokit = (accessToken) => {
     octokit = octokit = new Octokit({
@@ -24,42 +25,37 @@ export default function RepoList() {
     });
   };
 
-  const githubRepoRequest = usePromise({
-    promiseFunction: async () =>
-      octokit.gists.list({
-        per_page: 100,
-      }),
-  });
-
   useEffect(() => {
-    localStorage.setItem("accessToken", accessToken || "");
-    setupOktokit(accessToken || "");
+    async function fetchData() {
+      localStorage.setItem("accessToken", accessToken || "");
+      setupOktokit(accessToken || "");
 
-    if (accessToken) {
-      githubRepoRequest.call();
+      if (accessToken) {
+        const response = await octokit.gists.list({
+          per_page: 100,
+        });
+        setGistsResponse(response);
+      }
     }
-  }, [accessToken, githubRepoRequest]);
+    fetchData();
+  }, [accessToken]);
 
   useEffect(() => {
     window.handleToken = (accessToken) => setAccessToken(accessToken);
   }, []);
 
-  console.log("githubRepoRequest", githubRepoRequest);
+  console.log("accessToken", accessToken);
 
   return (
     <div>
       <h1>Manager Test</h1>
       {!accessToken && (
-        <a
-          href={generateAuthorizeUrl({ scope })}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        // eslint-disable-next-line react/jsx-no-target-blank
+        <a href={generateAuthorizeUrl({ scope })} target="_blank">
           Login with GitHub
         </a>
       )}
-      {githubRepoRequest.pending && <p>pending</p>}
-      {githubRepoRequest.value?.data?.filter(Boolean).map((repo: any) => (
+      {gistsResponse.data?.filter(Boolean).map((repo: any) => (
         <div key={repo.id}>{repo.description}</div>
       ))}
     </div>

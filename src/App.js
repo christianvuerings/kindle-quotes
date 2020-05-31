@@ -38,6 +38,15 @@ function App() {
     return quote;
   };
 
+  const shuffleArray = (arr) => {
+    const newArr = arr.slice();
+    for (let i = newArr.length - 1; i > 0; i--) {
+      const rand = Math.floor(Math.random() * (i + 1));
+      [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
+    }
+    return newArr;
+  };
+
   const parseText = (text) =>
     text
       .split("==========")
@@ -60,8 +69,7 @@ function App() {
         } else {
           return acc;
         }
-      }, [])
-      .sort((a, b) => (a.quote === b.quote ? 0 : a.quote < b.quote ? -1 : 1));
+      }, []);
 
   const handleFileChange = async (event) => {
     event.stopPropagation();
@@ -69,7 +77,7 @@ function App() {
     const file = event.target.files[0];
 
     const text = await new Response(file).text();
-    setQuotes(parseText(text));
+    setQuotes(shuffleArray(parseText(text)).slice(0, 100));
   };
 
   const handleChecked = ({ index, event }) => {
@@ -81,7 +89,7 @@ function App() {
 
   const handleQuoteChange = ({ index, event }) => {
     const copy = [...quotes];
-    copy[index].quote = event.currentTarget.value;
+    copy[index].quote = event.currentTarget.textContent;
     setQuotes(copy);
   };
 
@@ -113,12 +121,14 @@ function App() {
                 onChange={(event) => handleChecked({ event, index })}
               />
               {Boolean(checked)}
-              <input
-                type="text"
-                className="textfield"
-                value={quote}
-                onChange={(event) => handleQuoteChange({ event, index })}
-              />
+              <div
+                className="textarea"
+                onBlur={(event) => handleQuoteChange({ event, index })}
+                contentEditable
+                suppressContentEditableWarning
+              >
+                {quote}
+              </div>
             </div>
           ))}
         </div>

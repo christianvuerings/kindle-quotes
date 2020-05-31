@@ -4,6 +4,10 @@
   font-family: -apple-system, Helvetica, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,
     Cantarell, "Helvetica Neue", sans-serif;
 }
+*:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px hsla(6, 100%, 67%, 0.8);
+}
 
 html {
   box-sizing: border-box;
@@ -106,7 +110,7 @@ body {
   padding: 4px 0px;
 }
 
-.textfield {
+.textarea {
   border-radius: 8px;
   border: 1px solid #111;
   font-size: 1rem;

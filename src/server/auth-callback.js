@@ -38,7 +38,6 @@ exports.handler = (event, context, callback) => {
         body: `<html>
           <body>
 			<script>
-              alert("hello");
               window.opener.handleToken("${accessToken.token.access_token}");
               window.close();
             </script>

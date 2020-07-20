@@ -48,7 +48,7 @@ body {
   font-size: clamp(3rem, 10vw, 5rem);
 }
 
-.button-upload {
+.button {
   background-color: hsl(6, 100%, 67%);
   color: #fff;
   border-radius: 999px;
@@ -62,11 +62,10 @@ body {
   transition: all 0.1s ease-out;
 }
 
-.button-upload:hover {
-  cursor: pointer;
+.button:hover {
   background-color: hsl(6, 50%, 50%);
 }
-.button-upload:active {
+.button:active {
   transform: scale(0.98);
 }
 
@@ -79,6 +78,9 @@ body {
   height: 100%;
   opacity: 0;
   width: 100%;
+}
+.button-upload-input:hover {
+  cursor: pointer;
 }
 
 .quotes {
@@ -115,4 +117,10 @@ body {
   border: 1px solid #111;
   font-size: 1rem;
   padding: 8px 12px;
+}
+
+.githubAvatar {
+  border-radius: 100%;
+  height: 100px;
+  width: 100px;
 }

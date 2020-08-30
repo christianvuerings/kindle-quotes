@@ -1,8 +1,6 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, Helvetica, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,
-    Cantarell, "Helvetica Neue", sans-serif;
 }
 *:focus {
   outline: none;
@@ -30,7 +28,10 @@ body {
   height: 100%;
 }
 
-.app {
+.home {
+  font-family: -apple-system, Helvetica, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,
+    Cantarell, "Helvetica Neue", sans-serif;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,15 +41,15 @@ body {
   width: 100%;
 }
 
-.header {
+.home .header {
   text-align: center;
 }
-.header h1 {
+.home .header h1 {
   color: #111;
   font-size: clamp(3rem, 10vw, 5rem);
 }
 
-.button {
+.home .button {
   background-color: hsl(6, 100%, 67%);
   color: #fff;
   border-radius: 999px;
@@ -62,14 +63,14 @@ body {
   transition: all 0.1s ease-out;
 }
 
-.button:hover {
+.home .button:not([disabled]):hover {
   background-color: hsl(6, 50%, 50%);
 }
-.button:active {
+.home .button:not([disabled]):active {
   transform: scale(0.98);
 }
 
-.button-upload-input {
+.home .button-upload-input {
   position: absolute;
   top: 0;
   left: 0;
@@ -79,11 +80,11 @@ body {
   opacity: 0;
   width: 100%;
 }
-.button-upload-input:hover {
+.home .button-upload-input:hover {
   cursor: pointer;
 }
 
-.quotes {
+.home .quotes {
   background: #fff;
   overflow: auto;
   border-radius: 8px;
@@ -93,7 +94,7 @@ body {
   width: 100%;
 }
 
-.quotes::-webkit-scrollbar {
+.home .quotes::-webkit-scrollbar {
   background-color: hsla(6, 100%, 67%, 0.2);
   width: 12px;
   height: 12px;
@@ -104,7 +105,7 @@ body {
   border-radius: 999px;
 }
 
-.quote {
+.home .quote {
   align-items: center;
   display: grid;
   grid-gap: 12px;

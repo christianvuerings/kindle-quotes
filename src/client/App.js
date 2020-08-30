@@ -1,42 +1,19 @@
 import React from "react";
-import GitHubAccessToken from "./GitHubAccessToken";
-import Quotes from "./Quotes";
-import UploadQuotes from "./UploadQuotes";
-import GistUploadButton from "./GistUploadButton";
-import "./App.css";
+import Home from "./Home";
+import SlideShow from "./SlideShow";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-function App() {
-  const [quotes, setQuotes] = React.useState([]);
-  const [accessToken, setAccessToken] = React.useState(
-    localStorage.getItem("accessToken")
-  );
-
+export default function App() {
   return (
-    <div className="app">
-      <div className="header">
-        <h1>Kindle Quotes</h1>
-        <GitHubAccessToken
-          accessToken={accessToken}
-          setAccessToken={setAccessToken}
-        />
-        <UploadQuotes
-          quotes={quotes}
-          onQuotesChange={(quotes) => setQuotes(quotes)}
-        />
-        {Boolean(quotes.length) && (
-          <GistUploadButton
-            accessToken={accessToken}
-            quotes={quotes
-              .filter((quote) => quote.checked)
-              .map(({ bookTitle, quote }) => ({ quote, bookTitle }))}
-          />
-        )}
-      </div>
-      {Boolean(quotes.length) && (
-        <Quotes quotes={quotes} onQuotesChange={setQuotes} />
-      )}
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/slideshow/:username/:gistId">
+          <SlideShow />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
-
-export default App;

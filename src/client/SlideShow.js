@@ -96,20 +96,6 @@ export default function SlideShow() {
             </animated.div>
           );
         })}
-
-        {/* {quotes.map(({ quote, bookTitle }) => (
-          <div className="slide" key={quote}>
-            <div className="quote">{quote}</div>
-            <div className="book">- {bookTitle}</div>
-          </div>
-        ))} */}
-
-        {/* {quotes.map(({ quote, bookTitle }) => (
-          <div className="slide" key={quote}>
-            <div className="quote">{quote}</div>
-            <div className="book">- {bookTitle}</div>
-          </div>
-        ))} */}
       </div>
     </div>
   );

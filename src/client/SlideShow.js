@@ -81,11 +81,11 @@ export default function SlideShow() {
     }
 
     const nextIndex = (index + 1) % quotes.length;
-    const { quote: nextQuote } = quotes[nextIndex];
+    const { quote: currentQuote } = quotes[index];
 
     const timeout = setTimeout(() => {
       setIndex(nextIndex);
-    }, 5000 + nextQuote.split(" ").length * 200);
+    }, 5000 + currentQuote.split(" ").length * 200);
 
     return () => {
       clearTimeout(timeout);

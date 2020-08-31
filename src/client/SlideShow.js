@@ -84,6 +84,7 @@ export default function SlideShow() {
     const { quote: currentQuote } = quotes[index];
 
     const timeout = setTimeout(() => {
+      console.log("setTimeout");
       setIndex(nextIndex);
     }, 5000 + currentQuote.split(" ").length * 200);
 
@@ -107,10 +108,14 @@ export default function SlideShow() {
           }
           const { quote, bookTitle, authors, title } = quotes[item];
 
+          const fontSize = `${6.5 - quote.length * 0.005}vmin`;
+
           return (
             <animated.div className="slide" key={key} style={{ ...props }}>
               <>
-                <div className="quote">{quote}</div>
+                <div className="quote" style={{ fontSize }}>
+                  {quote}
+                </div>
                 <div className="book">
                   - {title ? `${title} (${authors[0]})` : bookTitle}
                 </div>

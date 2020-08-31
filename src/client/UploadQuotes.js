@@ -3,7 +3,7 @@ import React from "react";
 // TODO
 
 // Google book integration (key: AIzaSyD78sczo2XFjok6QWEIcEYMfgXTa-GWaJ8)
-// https://www.googleapis.com/books/v1/volumes?q=Anxiety%20and%20disconnection%20also%20emerged%20as%20drivers%20of%20numbing%20in%20addition%20to%20shame.&maxResults=1
+// https://www.googleapis.com/books/v1/volumes?q=Anxiety%20and%20disconnection%20also%20emerged%20as%20drivers%20of%20numbing%20in%20addition%20to%20shame.&maxResults=1&key=AIzaSyD78sczo2XFjok6QWEIcEYMfgXTa-GWaJ8
 
 export default function Quotes({ quotes, onQuotesChange }) {
   const inputFile = React.useRef(null);

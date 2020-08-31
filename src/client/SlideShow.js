@@ -20,7 +20,6 @@ export default function SlideShow() {
           const params = new URLSearchParams({
             q: bookTitle.replace("(Christian Vuerings)", ""),
             maxResults: 1,
-            key: "AIzaSyD78sczo2XFjok6QWEIcEYMfgXTa-GWaJ8",
           });
 
           const url = new URL("https://www.googleapis.com/books/v1/volumes");
@@ -48,7 +47,11 @@ export default function SlideShow() {
         })
       );
 
-      setQuotes(quotesWithBookData);
+      const randomIndex = Math.floor(Math.random() * quotesWithBookData.length);
+      setIndex(randomIndex);
+      setTimeout(() => {
+        setQuotes(quotesWithBookData);
+      }, 400);
     }
     fetchData();
   }, [gistId, username]);

@@ -19,18 +19,36 @@ export default function Home() {
           accessToken={accessToken}
           setAccessToken={setAccessToken}
         />
-        <UploadQuotes
-          quotes={quotes}
-          onQuotesChange={(quotes) => setQuotes(quotes)}
-        />
-        {Boolean(quotes.length) && (
-          <GistUploadButton
-            accessToken={accessToken}
-            quotes={quotes
-              .filter((quote) => quote.checked)
-              .map(({ bookTitle, quote }) => ({ quote, bookTitle }))}
-          />
-        )}
+        <div
+          style={{
+            marginLeft: -8,
+            marginRight: -8,
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <div style={{ paddingLeft: 8, paddingRight: 8 }}>
+            <UploadQuotes
+              quotes={quotes}
+              onQuotesChange={(quotes) => setQuotes(quotes)}
+            />
+          </div>
+          <div
+            style={{
+              paddingLeft: 8,
+              paddingRight: 8,
+            }}
+          >
+            {Boolean(quotes.length) && (
+              <GistUploadButton
+                accessToken={accessToken}
+                quotes={quotes
+                  .filter((quote) => quote.checked)
+                  .map(({ bookTitle, quote }) => ({ quote, bookTitle }))}
+              />
+            )}
+          </div>
+        </div>
       </div>
       {Boolean(quotes.length) && (
         <Quotes quotes={quotes} onQuotesChange={setQuotes} />

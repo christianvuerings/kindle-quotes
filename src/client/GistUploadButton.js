@@ -22,11 +22,16 @@ export default function GistUploadButton({ accessToken, quotes }) {
     });
 
     console.log(response);
-    window.open(response.data.html_url);
+
+    window.open(
+      `/slideshow/${response.data.files["kindle-quotes.json"].raw_url
+        .replace("https://gist.githubusercontent.com/", "")
+        .replace("/kindle-quotes.json", "")}`.replace(/\/raw(.*)/i, "")
+    );
   };
   return (
     <button disabled={!quotes.length} className="button" onClick={handleClick}>
-      Upload quotes to gist
+      Show slideshow
     </button>
   );
 }

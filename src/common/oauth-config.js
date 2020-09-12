@@ -1,5 +1,5 @@
 const oauthApi = "https://github.com/login/oauth";
-const siteUrl = process.env.NETLIFY_URL || "http://localhost:8888";
+const siteUrl = process.env.NETLIFY_URL || "https://kindle-quotes.netlify.app";
 
 console.log("siteUrl", siteUrl);
 console.log("process.env", process.env);

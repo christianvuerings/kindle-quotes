@@ -39,8 +39,8 @@ exports.handler = (event, context, callback) => {
         body: `<html>
           <body>
             <script>
-              console.log(${stringifiedResult}, "${code}")
-              window.opener.handleToken("${accessToken.token.access_token}");
+              console.log(${stringifiedResult})
+              window.opener.handleToken("${accessToken.access_token}");
               window.close();
             </script>
           </body>

@@ -33,12 +33,14 @@ exports.handler = (event, context, callback) => {
     })
     .then((result) => {
       const accessToken = oauth2.accessToken.create(result);
+      const stringifiedResult = JSON.stringify(result);
+
       return callback(null, {
         statusCode: 200,
         body: `<html>
           <body>
       <script>
-              console.log(${result})
+              console.log(${stringifiedResult}, ${code})
               window.opener.handleToken("${accessToken.token.access_token}");
               window.close();
             </script>

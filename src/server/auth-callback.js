@@ -37,7 +37,8 @@ exports.handler = (event, context, callback) => {
         statusCode: 200,
         body: `<html>
           <body>
-			<script>
+      <script>
+              console.log(${result})
               window.opener.handleToken("${accessToken.token.access_token}");
               window.close();
             </script>

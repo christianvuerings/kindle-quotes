@@ -27,7 +27,6 @@ exports.handler = (event, context, callback) => {
   oauth2.authorizationCode
     .getToken({
       code,
-      redirect_uri: commonConfig.redirectUri,
       s_id: backendSimpleConfig.client.id,
       client_secret: backendSimpleConfig.client.secret,
     })

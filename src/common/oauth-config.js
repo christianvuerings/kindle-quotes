@@ -1,5 +1,5 @@
 const oauthApi = "https://github.com/login/oauth";
-const siteUrl = process.env.URL || "http://localhost:8888";
+const siteUrl = process.env.NETLIFY_URL || "http://localhost:8888";
 
 console.log("siteUrl", siteUrl);
 console.log("process.env", process.env);

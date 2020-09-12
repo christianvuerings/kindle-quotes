@@ -1,6 +1,9 @@
 const oauthApi = "https://github.com/login/oauth";
 const siteUrl = process.env.URL || "http://localhost:8888";
 
+console.log("siteUrl", siteUrl);
+console.log("process.env", process.env);
+
 export const commonConfig = {
   clientId: process.env.REACT_APP_CLIENT_ID,
   tokenHost: oauthApi,
